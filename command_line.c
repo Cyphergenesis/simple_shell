@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
+#include <string.h>
 
 #define MAX_ARG 10
 #define MAX_PATH_LENGTH 50
@@ -13,7 +15,7 @@ void prompt(char **av, char **env)
 	char *str = NULL;
 	ssize_t gets_char;
 	size_t  n = 0;
-	int i;
+	int i, k;
 	pid_t pid;
 	char *argv[MAX_ARG];
 	str = malloc(sizeof(char));
@@ -36,6 +38,16 @@ void prompt(char **av, char **env)
 				str[i] = 0;
 		}
 
+		/* Handle command line with arguments */
+		k = 0;
+		argv[k] = strtok(str, " ");
+
+		while (argv[k] != NULL)
+		{
+			k++;
+			argv[k] = strtok(NULL, " ");
+		}
+
 		/* creates fork process */
 		pid = fork();
 
@@ -45,7 +57,8 @@ void prompt(char **av, char **env)
 			perror("fork");
 			exit(1);
 		}
-		
+
+		/* child process */
 		if (pid == 0)
 		{
 			if (execve(argv[0], argv, env) == -1)
@@ -57,7 +70,12 @@ void prompt(char **av, char **env)
 		else
 		{
 			/* parent process */
+			int status;
+
+			if (waitpid(pid, &status, 0) == -1)
+			{
 			exit(1);
+			}
 		}
 	}
 }
