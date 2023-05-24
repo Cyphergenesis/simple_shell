@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
-* input_buf - buffers chained commands
+* cha_buff - buffers chained commands
 * @f: parameter struct
 * @buff: address of buffer
 * @length: address of len var
