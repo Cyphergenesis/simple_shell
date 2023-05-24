@@ -1,24 +1,53 @@
-SIMPLE SHELL PROJECT (Group Project)
+# Project Title
 
-NAMES OF PARTICIPANTs
-Joseph Johnson Aniekan
-Olabanji Enioluwayan Emmanuel (collaborator)
+### 0x16. C - Simple Shell
+##### Weight: 10 
 
-Helpful Resources
-Read or watch:
+## Names of Participant
++ Joseph Johnson Aniekan
++ Olabanji Enioluwayan Emmanuel (collaborator)
 
-Unix shell
-Thompson shell
-Ken Thompson
-Everything you need to know to start coding your own shell concept page.
+## Resources
+1. Unix shell
+2. Thompson shell
+3. Ken Thompson
 
-Concepts
-For this project, we expect you to look at these concepts:
+## Allowed Editors
++ Vi|Vim
++ Emacs
 
-* Everything you need to know to start coding your own shell
-* Approaching a Project
+## Compilation
 
-Learning Objectives
-At the end of this project, you are expected to be able to explain to anyone, without the help of Google.
+*** gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh ***
+
+## Concept
+
+
+## Output
+
+*** Interactive mode ***
+```
+$ ./hsh
+($) /bin/ls
+hsh main.c shell.c
+($)
+($) exit
+$
+```
+
+*** Non-Interactive mode ***
+```
+$ echo "/bin/ls" | ./hsh
+hsh main.c shell.c test_ls_2
+$
+$ cat test_ls_2
+/bin/ls
+/bin/ls
+$
+$ cat test_ls_2 | ./hsh
+hsh main.c shell.c test_ls_2
+hsh main.c shell.c test_ls_2
+$
+```
 
 
