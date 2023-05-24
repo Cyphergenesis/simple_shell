@@ -13,8 +13,7 @@ int curr_env(sort *f)
 /**
 * _get_env - gets the value of an environ variable
 * @f: Structure containing potential arguments. Used to maintain
-* @name: env var name
-*
+* @u_name: env var name
 * Return: the value
 */
 char *_get_env(sort *f, const char *u_name)
@@ -33,8 +32,7 @@ char *_get_env(sort *f, const char *u_name)
 }
 
 /**
-* _mysetenv - Initialize a new environment variable,
-*or modify an existing one
+*new_env - Initialize a new environment variable or modify an existing one
 *@f: Structure containing potential arguments. Used to maintain
 *constant function prototype.
 * Return: Always 0
