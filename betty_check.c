@@ -10,16 +10,16 @@ int calculateSquare(int num);
 
 int main(void)
 {
-    int number = 5;
-    int result = calculateSquare(number);
+	int number = 5;
+	int result = calculateSquare(number);
     
-    printf("The square of %d is: %d\n", number, result);
+	printf("The square of %d is: %d\n", number, result);
     
-    return 0;
+	return 0;
 }
 
 int calculateSquare(int num)
 {
-    return num * num;
+	return num * num;
 }
 
