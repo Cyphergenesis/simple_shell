@@ -21,19 +21,19 @@ int _strl(char *s)
 *
 * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
 */
-int _strcm(char *s1, char *s2)
+int _strcm(char *str1, char *str2)
 {
-	while (*s1 && *s2)
+	while (*str1 && *str2)
 	{
-		if (*s1 != *s2)
-	return (*s1 - *s2);
-		s1++;
-		s2++;
+		if (*str1 != *str2)
+	return (*str1 - *str2);
+		str1++;
+		str2++;
 	}
-	if (*s1 == *s2)
+	if (*str1 == *str2)
 		return (0);
 	else
-		return (*s1 < *s2 ? -1 : 1);
+		return (*str1 < *str2 ? -1 : 1);
 }
 /**
 * start_hay - checks if needle starts with haystack
