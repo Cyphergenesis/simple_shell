@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
 * _environ - returns the string array copy of our environ
-*@info: Structure containing potential arguments. Used to maintain
+*@f: Structure containing potential arguments. Used to maintain
 *constant function prototype.
 * Return: Always 0
 */
@@ -15,13 +15,13 @@ char **_environ(sort *f)
 	return (f->environ);
 }
 /**
-* _remove_env - Remove an environment variable
+* _unsetenv - Remove an environment variable
 * @f: Structure containing potential arguments. Used to maintain
 * constant function prototype.
 * Return: 1 on delete, 0 otherwise
 * @v: the string env var property
 */
-int _remove_env(sort *f, char *v)
+int _unsetenv(sort *f, char *v)
 {
 	lis_t *node = f->env;
 	size_t i = 0;
@@ -54,7 +54,7 @@ int _remove_env(sort *f, char *v)
  * @val: the string env var value
  * Return: Always 0
  */
-int init_env(sort *f, char *v, char *val)
+int _setenv(sort *f, char *v, char *val)
 {
 	char *buff = NULL;
 	lis_t *node;
@@ -64,8 +64,8 @@ int init_env(sort *f, char *v, char *val)
 	return (0);
 		buff = malloc(_strl(v) + _strl(val) + 2);
 	if (!buff)
-	return (1);
-		strcp(buff, v);
+		return (1);
+	strcp(buff, v);
 	_strc(buff, "=");
 	_strc(buff, val);
 	node = f->env;

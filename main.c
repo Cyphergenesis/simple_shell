@@ -7,7 +7,7 @@
 */
 int main(int ac, char **av)
 {
-	sort f[] = {INFO_INIT};
+	sort f[] = { INFO_INIT };
 	int fld = 2;
 
 	asm ("mov %1, %0\n\t""add $3, %0" : "=r" (fld) : "r" (fld));

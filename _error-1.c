@@ -38,11 +38,11 @@ int con_str(char *str)
 void _error(sort *f, char *str)
 {
 	_write_str(f->_name);
-	_write_str(":");
+	_write_str(": ");
 	print_func(f->line_count, STDERR_FILENO);
-	_write_str(":");
-	_write_str(f->agv[0]);
-	_write_str(":");
+	_write_str(": ");
+	_write_str(f->argv[0]);
+	_write_str(": ");
 	_write_str(str);
 
 }
@@ -71,8 +71,10 @@ int print_func(int inp, int fd)
 		count++;
 	}
 	else
+	{
 		_abs_ = inp;
-	curr = _abs_;
+	}
+		curr = _abs_;
 	for (i = 1000000000; i > 1; i /= 10)
 	{
 		if (_abs_/i)

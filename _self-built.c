@@ -44,6 +44,7 @@ int unmake_alias(sort *f, char *str)
 int make_alias(sort *f, char *str)
 {
 	char *m;
+	
 	m = locate_str(str, '=');
 	if(!m)
 		return (1);
@@ -91,7 +92,7 @@ int _alias(sort *f)
 	char *n = NULL;
 	lis_t *node = NULL;
 
-	if (f->agc == 1)
+	if (f->argc == 1)
 	{
 		node = f->alias;
 		while (node)
@@ -101,13 +102,13 @@ int _alias(sort *f)
 		}
 		return (0);
 	}
-	for (i = 1; f->agv[i]; i++)
+	for (i = 1; f->argv[i]; i++)
 	{
-		n = locate_str(f->agv[i], '=');
+		n = locate_str(f->argv[i], '=');
 		if (n)
-			make_alias(f, f->agv[i]);
+			make_alias(f, f->argv[i]);
 		else
-		alias_string(_node_prefix(f->alias, f->agv[i], '='));
+		alias_string(_node_prefix(f->alias, f->argv[i], '='));
 	}
 
 	return (0);

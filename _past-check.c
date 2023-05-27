@@ -92,11 +92,10 @@ int _read(sort *f)
 			las = i + 1;
 		}
 	if (las != i)
-	{
 		add_list(f, buff + las, line_count++);
-		free(buff);
+	
+	free(buff);
 	f->_count_num = line_count;
-	}
 	while (f->_count_num-- >= HIST_MAX)
 		del_node(&(f->history), 0);
 	renum_link(f);

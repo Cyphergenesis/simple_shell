@@ -17,28 +17,27 @@ ssize_t cha_buff(sort *f, char **buff, size_t *length)
 		free(*buff);
 		*buff = NULL;
 		signal(SIGINT, signint);
+		
 		n = getline(buff, &en_p, stdin);
 
-	n = _get_line(f, buff, &en_p);
+		n = _get_line(f, buff, &en_p);
 
-	if (n > 0)
-	{
-		if ((*buff)[n - 1] == '\n')
+		if (n > 0)
 		{
-			(*buff)[n - 1] = '\0';
-			n--;
-		}
-		f->line_flag = 1;
-		rep_lines(*buff);
-		add_list(f, *buff, f->_count_num++);
-		{
+			if ((*buff)[n - 1] == '\n')
+			{
+				(*buff)[n - 1] = '\0';
+				n--;
+			}
+			f->line_flag = 1;
+			rep_lines(*buff);
+			add_list(f, *buff, f->_count_num++);
+			{
 			*length = n;
 			f->cmd_buff = buff;
-
+			}
 
 		}
-
-	}
 
 
 	}
@@ -58,7 +57,7 @@ ssize_t _input(sort *f)
 	static size_t i, k, len;
 	ssize_t n = 0;
 
-	char **buf_c = &(f->ag), *v;
+	char **buf_c = &(f->arg), *v;
 
 	putch(BUF_FLUSH);
 	n = cha_buff(f, &buff, &len);
@@ -136,9 +135,10 @@ int _get_line(sort *f, char **ptr, size_t *len)
 	if (q && len)
 		m = *len;
 	if (i == length)
+	{
 		i = length = 0;
-
-	n = read_buffer(f, buff, &length);
+		n = read_buffer(f, buff, &length);
+	}
 	if (n == -1 || (n == 0 && length == 0))
 		return (-1);
 
@@ -157,9 +157,9 @@ int _get_line(sort *f, char **ptr, size_t *len)
 	q = new;
 
 	if (len)
-	*len = m;
+		*len = m;
 
-		*ptr = q;
+	*ptr = q;
 	return (m);
 }
 /**
@@ -172,6 +172,6 @@ void signint(__attribute__((unused))int sig_num)
 {
 
 	putst("\n");
-	putst("$");
+	putst("$ ");
 	putch(BUF_FLUSH);
 }

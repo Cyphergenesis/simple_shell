@@ -65,7 +65,7 @@ int _builtin(sort *f)
 		{"alias", _alias},
 		{NULL, NULL}};
 	for (i = 0; b[i].type; i++)
-	if (_strcm(f->agv[0], b[i].type) == 0)
+	if (_strcm(f->argv[0], b[i].type) == 0)
 	{
 		f->line_count++;
 		built = b[i].func(f);
@@ -84,30 +84,30 @@ void _find(sort *f)
 	char *path = NULL;
 	int i, j;
 
-	f->pth = f->agv[0];
+	f->path = f->argv[0];
 	if (f->line_flag == 1)
 	{
 		f->line_count++;
 		f->line_flag = 0;
 	}
-	for (i = 0, j = 0; f->ag[i]; i++)
-	if (!checks_delim(f->ag[i], " \t\n"))
-		j++;
+	for (i = 0, j = 0; f->arg[i]; i++)
+		if (!checks_delim(f->arg[i], " \t\n"))
+			j++;
 	if (!j)
 		return;
-	path = _path_cmd(f, _get_env(f, "PATH="), f->agv[0]);
+	path = _path_cmd(f, _get_env(f, "PATH="), f->argv[0]);
 		if (path)
 		{
-			f->pth = path;
+			f->path = path;
 			_fork(f);
 		}
 		else
 		{
 	if ((_active(f) || _get_env(f, "PATH=")
-	|| f->agv[0][0] == '/') && _cmd(f, f->agv[0]))
+	|| f->argv[0][0] == '/') && _cmd(f, f->argv[0]))
 		_fork(f);
 
-		else if (*(f->ag) != '\n')
+		else if (*(f->arg) != '\n')
 		{
 			f->_stat = 127;
 			_error(f, "not found\n");
@@ -133,7 +133,7 @@ void _fork(sort *f)
 	}
 	if (pid == 0)
 	{
-	if (execve(f->pth, f->agv, _environ(f)) == -1)
+	if (execve(f->path, f->argv, _environ(f)) == -1)
 		{
 		release_sort(f, 1);
 		if (errno == EACCES)
@@ -143,9 +143,7 @@ void _fork(sort *f)
 	else
 	{
 		wait(&(f->_stat));
-
 		if (WIFEXITED(f->_stat))
-
 		{
 			f->_stat = WEXITSTATUS(f->_stat);
 			if (f->_stat == 126)

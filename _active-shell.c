@@ -36,10 +36,10 @@ int checks_alpha(int c)
 		return (0);
 }
 /**
-* _atoi - converts a string to an integer
-* @s: the string to be converted* Return: 0 if no numbers in string, converted number otherwise
+* _convert_str - converts a string to an integer
+* @m: the string to be converted* Return: 0 if no numbers in string, converted number otherwise
 */
-int _convert_tr(char *m)
+int _convert_str(char *m)
 {
 	int i;
 	int sgn = 1, flag = 0, output;
@@ -48,7 +48,7 @@ int _convert_tr(char *m)
 	for (i = 0; m[i] != '\0' && flag != 2; i++)
 	{
 		if (m[i] == '-')
-		sgn *= -1;
+			sgn *= -1;
 
 		if (m[i] >= '0' && m[i] <= '9')
 		{

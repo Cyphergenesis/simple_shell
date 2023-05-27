@@ -77,17 +77,17 @@ int rep_alia(sort *f)
 	char *q;
 	for (i = 0; i < 10; i++)
 	{
-		node = _node_prefix(f->alias, f->agv[0], '=');
+		node = _node_prefix(f->alias, f->argv[0], '=');
 		if (!node)
 			return (0);
-		free(f->agv[0]);
+		free(f->argv[0]);
 	q = locate_str(node->str, '=');
 		if (!q)
 			return (0);
 		q = _dup(q + 1);
 		if (!q)
 			return (0);
-		f->agv[0] = q;
+		f->argv[0] = q;
 	}
 	return (1);
 }
@@ -103,32 +103,28 @@ int rep_var(sort *f)
 	int i = 0;
 	lis_t *node;
 
-	for (i = 0; f->agv[i]; i++)
+	for (i = 0; f->argv[i]; i++)
 	{
-		if (f->agv[i][0] != '$' || !f->agv[i][1])
+		if (f->argv[i][0] != '$' || !f->argv[i][1])
 			continue;
-		if (!_strcm(f->agv[i], "$?"))
+		if (!_strcm(f->argv[i], "$?"))
 		{
-			rep_str(&(f->agv[i]),
-		_dup(con_num(f->_stat, 10, 0)));
+	rep_str(&(f->argv[i]), _dup(con_num(f->_stat, 10, 0)));
 			continue;
 		}
-		if (!_strcm(f->agv[i], "$$"))
+		if (!_strcm(f->argv[i], "$$"))
 		{
-			rep_str(&(f->agv[i]),
-			_dup(con_num(getpid(), 10, 0)));
-
+	rep_str(&(f->argv[i]), _dup(con_num(getpid(), 10, 0)));
 			continue;
 		}
-		node = _node_prefix(f->env, &f->agv[i][1], '=');
+		node = _node_prefix(f->env, &f->argv[i][1], '=');
 		if (node)
 		{
-			rep_str(&(f->agv[i]),
-			_dup(locate_str(node->str, '=') + 1));
+	rep_str(&(f->argv[i]), _dup(locate_str(node->str, '=') + 1));
 			continue;
 		}
 
-		rep_str(&f->agv[i], _dup(""));
+		rep_str(&f->argv[i], _dup(""));
 	}
 	return (0);
 }

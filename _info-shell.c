@@ -1,44 +1,44 @@
 #include "shell.h"
 /**
-* _init - initializes info_t struct
+* _clear- initializes info_t struct
 * @f: struct address
 */
 void _clear(sort *f)
 {
-	f->ag = NULL;
-	f->agv = NULL;
-	f->pth = NULL;
-	f->agc = 0;
+	f->arg = NULL;
+	f->argv = NULL;
+	f->path = NULL;
+	f->argc = 0;
 }
 /**
-* init_sort - initializes info_t struct
+* _info - initializes info_t struct
 * @sort: struct address
-* @arv: argument vector
+* @av: argument vector
 */
 void _info(sort *f, char **av)
 {
 	int i = 0;
 
 	f->_name = av[0];
-	if (f->agv)
+	if (f->argv)
 	{
-		f->agv = tow(f->ag, "\t");
-		if (!f->agv)
+		f->argv = tow(f->arg, "\t");
+		if (!f->argv)
 		{
-			f->agv = malloc(sizeof(char *) * 2);
-			if (f->agv)
+			f->argv = malloc(sizeof(char *) * 2);
+			if (f->argv)
 			{
-				f->agv[0] = _dup(f->ag);
-				f->agv[1] = NULL;
+				f->argv[0] = _dup(f->arg);
+				f->argv[1] = NULL;
 
 			}
 
 		}
-	for (i = 0; f->agv && f->agv[i]; i++);
-	f->agc = i;
+		for (i = 0; f->argv && f->argv[i]; i++);
+		f->argc = i;
 
-	rep_alia(f);
-	rep_var(f);
+		rep_alia(f);
+		rep_var(f);
 	}
 
 }
@@ -50,13 +50,13 @@ void _info(sort *f, char **av)
 */
 void release_sort(sort *f, int a)
 {
-	_free_str(f->agv);
-	f->agv = NULL;
-	f->pth = NULL;
+	_free_str(f->argv);
+	f->argv = NULL;
+	f->path = NULL;
 	if (a)
 	{
 		if (!f->cmd_buff)
-			free(f->ag);
+			free(f->arg);
 		if (f->env)
 			distro_list(&(f->env));
 		if (f->history)

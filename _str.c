@@ -17,9 +17,9 @@ int _strl(char *r)
 }
 
 /**
-* _strcm - performs lexicogarphic comparison of two strangs.
-* @str1: the first strang
-* @str2: the second strang
+* _strcm - performs lexicogarphic comparison of two strings.
+* @str1: the first string
+* @str2: the second string
 *
 * Return: negative if str1 < str2, positive if str1 > str2, zero if st* r1 == str2
 */

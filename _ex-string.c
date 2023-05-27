@@ -64,8 +64,8 @@ char *_str_cat(char *des, char *src, int num)
 char *locate_str(char *str, char c)
 {
 	do {
-	if (*str == c)
-		return (str);
+		if (*str == c)
+			return (str);
 	} while (*str++ != '\0');
 
 	return (NULL);

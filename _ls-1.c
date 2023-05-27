@@ -7,17 +7,17 @@
 */
 size_t _lenlist(const lis_t *head)
 {
-	size_t i;
+	size_t i = 0;
 
-	for (i = 0; head; i++)
+	while (head)
 	{
 		head = head->next;
+		i++;
 	}
-	
 	return (i);
 }
 /**
-* list_to_strings - returns an array of strings of the list->str
+* list_strings - returns an array of strings of the list->str
 * @head: pointer to first node
 *
 * Return: array of strings
@@ -114,13 +114,14 @@ lis_t *_node_prefix(lis_t *node, char *pref, char c)
 */
 ssize_t get_index(lis_t *head, lis_t *node)
 {
-	size_t i;
+	size_t i = 0;
 
-	for (i = 0; head; i++)
+	while (head)
 	{
 		if (head == node)
 			return (i);
 		head = head->next;
+		i++;
 	}
 	return (-1);
 }

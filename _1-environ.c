@@ -39,12 +39,12 @@ char *_get_env(sort *f, const char *u_name)
 */
 int new_env(sort *f)
 {
-	if (f->agc != 3)
+	if (f->argc != 3)
 	{
 		_write_str("wrong number\n");
 		return (1);
 	}
-	if (init_env(f, f->agv[1], f->agv[2]))
+	if (_setenv(f, f->argv[1], f->argv[2]))
 		return (0);
 	return (1);
 }
@@ -58,14 +58,14 @@ int _rem_environ(sort *f)
 {
 	int i;
 
-	if (f->agc == 1)
+	if (f->argc == 1)
 	{
 		_write_str("few arguments\n");
 		return (1);
 	}
 
-	for (i = 1; i <= f->agc; i++)
-		_remove_env(f, f->agv[i]);
+	for (i = 1; i <= f->argc; i++)
+		_unsetenv(f, f->argv[i]);
 	return (0);
 }
 /**

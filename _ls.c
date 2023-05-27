@@ -17,7 +17,7 @@ lis_t *_node(lis_t **head, const char *st, int n)
 	new = malloc(sizeof(lis_t));
 	if (!new)
 		return (NULL);
-	_mem((void *) new, 0, sizeof(lis_t));
+	_mem((void *)new, 0, sizeof(lis_t));
 	new->num = n;
 	if (st)
 	{

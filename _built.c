@@ -10,18 +10,18 @@ int _ex_shell(sort *f)
 {
 	int exitcheck;
 
-	if (f->agv[1])
+	if (f->argv[1])
 	{
-		exitcheck = con_str(f->agv[1]);
+		exitcheck = con_str(f->argv[1]);
 		if (exitcheck == -1)
 		{
 			f->_stat = 2;
 			_error(f, "illegal number:");
-			_write_str(f->agv[1]);
+			_write_str(f->argv[1]);
 			_write('\n');
 			return (1);
 		}
-		f->_num = con_str(f->agv[1]);
+		f->_num = con_str(f->argv[1]);
 		return (-2);
 	}
 	f->_num = -1;
@@ -42,7 +42,7 @@ int _chcd(sort *f)
 	s = getcwd(buff, 1024);
 	if (!s)
 		putst("error message\n");
-	if (!f->agv[1])
+	if (!f->argv[1])
 	{
 		set = _get_env(f, "HOME=");
 		if (!set)
@@ -52,7 +52,7 @@ int _chcd(sort *f)
 			_chdir = chdir(set);
 
 	}
-	else if (_strcm(f->agv[1], "-") ==  0)
+	else if (_strcm(f->argv[1], "-") ==  0)
 	{
 		if (!_get_env(f, "OLDPWD="))
 		{
@@ -64,16 +64,16 @@ int _chcd(sort *f)
 	_chdir = chdir((set = _get_env(f, "OLDPWD=")) ? set : "/");
 	}
 	else
-		_chdir  = chdir(f->agv[1]);
+		_chdir  = chdir(f->argv[1]);
 	if  (_chdir == -1)
 	{
 		_error(f, "wrong command");
-		_write_str(f->agv[1]), _write('\n');
+		_write_str(f->argv[1]), _write('\n');
 	}
 	else
 	{
-		init_env(f, "OLDPWD", _get_env(f, "PWD="));
-		init_env(f, "PWD", getcwd(buff, 1024));
+		_setenv(f, "OLDPWD", _get_env(f, "PWD="));
+		_setenv(f, "PWD", getcwd(buff, 1024));
 	}
 	return (0);
 
@@ -88,7 +88,7 @@ int _chdirectory(sort *f)
 {
 	char **ag;
 
-	ag = f->agv;
+	ag = f->argv;
 	putst("Not yet implemented\n");
 	if (0)
 		putst(*ag);
