@@ -41,26 +41,26 @@ int _chain(sort *f, char *buf, size_t *p)
 *
 * Return: Void
 */
-void ch_chain(sort *f, char *buf, size_t *p, size_t i, size_t len)
+void ch_chain(sort *f, char *buff, size_t *p, size_t i, size_t len)
 {
-	size_t j = *p;
+	size_t h = *p;
 	if (f->cmd_buf_type == CMD_AND)
 	{
 		if (f->status)
 		{
-			buf[i] = 0;
-			j = len;
+			buff[i] = 0;
+			h = len;
 		}
 	}
 		if (f->cmd_buf_type == CMD_OR)
 		{
 			if (!f->status)
 			{
-				buf[i] = 0;
-				j = len;
+				buff[i] = 0;
+				h = len;
 			}
 		}
-			*p = j;
+			*p = h;
 }
 /**
 * rep_alias - replaces an aliases in the tokenized string
@@ -132,9 +132,9 @@ return (0);
 *
 * Return: 1 if replaced, 0 otherwise
 */
-int rep_str(char **old, char *new)
+int rep_str(char **old_str, char *new_str)
 {
-	free(*old);
-	*old = new;
+	free(*old_str);
+	*old_str = new_str;
 return (1);
 }
