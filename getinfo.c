@@ -17,7 +17,7 @@ void _clear(sort *f)
 */
 void _info(sort *f, char **av)
 {
-	int i = 0;
+	int j = 0;
 	f->fname = av[0];
 	if (f->arg)
 	{
@@ -31,8 +31,8 @@ void _info(sort *f, char **av)
 				f->argv[1] = NULL;
 			}
 		}
-		for (i = 0; f->argv && f->argv[i]; i++);
-		f->argc = i;
+		for (j = 0; f->argv && f->argv[j]; j++);
+		f->argc = j;
 		rep_alia(f);
 		rep_var(f);
 	}
