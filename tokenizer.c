@@ -7,7 +7,7 @@
 */
 char **tow(char *str, char *d)
 {
-	int i, j, k, m, num_s = 0;
+	int i, j, kin, m, num_s = 0;
 	char **s;
 	if (str == NULL || str[0] == 0)
 		return (NULL);
@@ -25,18 +25,18 @@ char **tow(char *str, char *d)
 	{
 			while (checks_delim(str[i], d))
 				i++;
-		k = 0;
-		while (!checks_delim(str[i + k], d) && str[i + k])
-			k++;
-		s[j] = malloc((k + 1) * sizeof(char));
+		kin = 0;
+		while (!checks_delim(str[i + kin], d) && str[i + kin])
+			kin++;
+		s[j] = malloc((kin + 1) * sizeof(char));
 		if (!s[j])
 		{
-			for (k = 0; k < j; k++)
-			free(s[k]);
+			for (kin = 0; kin < j; kin++)
+			free(s[kin]);
 			free(s);
 			return (NULL);
 		}
-		for (m = 0; m < k; m++)
+		for (m = 0; m < kin; m++)
 			s[j][m] = str[i++];
 		s[j][m] = 0;
 	}
@@ -51,8 +51,9 @@ char **tow(char *str, char *d)
 */
 char **tow1(char *str, char d)
 {
-	int i, j, k, m, num_s = 0;
-	char **s;
+	int i, j;
+	int k, m, num_s = 0;
+	char **q;
 	if (str == NULL || str[0] == 0)
 	return (NULL);
 	for (i = 0; str[i] != '\0'; i++)
@@ -61,8 +62,8 @@ char **tow1(char *str, char d)
 	num_s++;
 		if (num_s == 0)
 	return (NULL);
-	s = malloc((1 + num_s) * sizeof(char *));
-	if (!s)
+	q = malloc((1 + num_s) * sizeof(char *));
+	if (!q)
 	return (NULL);
 	for (i = 0, j = 0; j < num_s; j++)
 	{
@@ -71,18 +72,18 @@ char **tow1(char *str, char d)
 		k = 0;
 		while (str[i + k] != d && str[i + k] && str[i + k] != d)
 			k++;
-		s[j] = malloc((k + 1) * sizeof(char));
-		if (!s[j])
+		q[j] = malloc((k + 1) * sizeof(char));
+		if (!q[j])
 		{
 			for (k = 0; k < j; k++)
-				free(s[k]);
-			free(s);
+				free(q[k]);
+			free(q);
 			return (NULL);
 		}
 		for (m = 0; m < k; m++)
-			s[j][m] = str[i++];
-		s[j][m] = 0;
+			q[j][m] = str[i++];
+		q[j][m] = 0;
 	}
-	s[j] = NULL;
-	return (s);
+	q[j] = NULL;
+	return (q);
 }
