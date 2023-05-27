@@ -8,8 +8,8 @@
 int _hsh(sort *f, char **av)
 {
 	ssize_t r = 0;
-	int builtin_ret = 0;
-	while (r != -1 && builtin_ret != -2)
+	int buil_nt = 0;
+	while (r != -1 && buil_nt != -2)
 	{
 		_clear(f);
 		if (_active(f))
@@ -19,8 +19,8 @@ int _hsh(sort *f, char **av)
 		if (r != -1)
 		{
 			_info(f, av);
-			builtin_ret = _builtin(f);
-		if (builtin_ret == -1)
+			buil_nt = _builtin(f);
+		if (buil_nt == -1)
 			_find(f);
 		}
 		else if (_active(f))
@@ -31,13 +31,13 @@ int _hsh(sort *f, char **av)
 	release_sort(f, 1);
 	if (!_active(f) && f->status)
 		exit(f->status);
-	if (builtin_ret == -2)
+	if (buil_nt == -2)
 	{
 		if (f->err_num == -1)
 			exit(f->status);
 		exit(f->err_num);
 	}	
-	return (builtin_ret);
+	return (buil_nt);
 }
 /**
 * _builtin - finds a builtin command
@@ -52,8 +52,8 @@ int _hsh(sort *f, char **av)
 */
 int _builtin(sort *f)
 {
-	int i, built_in_ret = -1;
-	builtin_table builtintbl[] = {
+	int i, built_in = -1;
+	builtin_table builtin[] = {
 	{"exit", _ex_shell},
 	{"env", curr_env},
 	{"help", _chdirectory},
@@ -64,14 +64,14 @@ int _builtin(sort *f)
 	{"alias", _alias},
 	{NULL, NULL}
 	};
-	for (i = 0; builtintbl[i].type; i++)
-		if (_strcm(f->argv[0], builtintbl[i].type) == 0)
+	for (i = 0; builtin[i].type; i++)
+		if (_strcm(f->argv[0], builtin[i].type) == 0)
 		{
 			f->line_count++;
-			built_in_ret = builtintbl[i].func(f);
+			built_in = builtin[i].func(f);
 			break;
 		}
-	return (built_in_ret);
+	return (built_in);
 }
 /**
 * _find - finds a command in PATH
@@ -120,15 +120,15 @@ return;
 */
 void _fork(sort *f)
 {
-	pid_t child_pid;
-	child_pid = fork();
-	if (child_pid == -1)
+	pid_t pid;
+	pid = fork();
+	if (pid == -1)
 	{
 		/* TODO: PUT ERROR FUNCTION */
 		perror("Error:");
 		return;
 	}
-	if (child_pid == 0)
+	if (pid == 0)
 	{
 	if (execve(f->path, f->argv, _environ(f)) == -1)
 		{
