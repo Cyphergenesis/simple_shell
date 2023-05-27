@@ -27,18 +27,18 @@ return (dest);
 */
 char *_dup(const char *str)
 {
-	int length = 0;
-	char *ret;
+	int len = 0;
+	char *set;
 	if (str == NULL)
 		return (NULL);
 	while (*str++)
-	length++;
-	ret = malloc(sizeof(char) * (length + 1));
-	if (!ret)
+	len++;
+	set = malloc(sizeof(char) * (len + 1));
+	if (!set)
 		return (NULL);
-	for (length++; length--;)
-	ret[length] = *--str;
-	return (ret);
+	for (len++; len--;)
+	set[len] = *--str;
+	return (set);
 }
 /**
 * putst - prints an input string
@@ -67,14 +67,14 @@ void putst(char *str)
 */
 int putch(char c)
 {
-	static int i;
+	static int h;
 	static char buf[WRITE_BUF_SIZE];
-	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || h >= WRITE_BUF_SIZE)
 	{
-		write(1, buf, i);
-		i = 0;
+		write(1, buf, h);
+		h = 0;
 	}
 	if (c != BUF_FLUSH)
-		buf[i++] = c;
+		buf[h++] = c;
 	return (1);
 }
